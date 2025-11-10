@@ -15,6 +15,10 @@ if [ -f /share/bash-completion/bash_completion ]; then
   . /share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
+elif [ -f run/current-system/sw/share/bash-completion/bash_completion ]; then
+  . run/current-system/sw/share/bash-completion/bash_completion
+elif [ -f nix/store/0gwkmw6lwdiwl1bpzxs9c47b5qsdcvpx-system-path/share/bash-completion/bash_completion ]; then
+  . nix/store/0gwkmw6lwdiwl1bpzxs9c47b5qsdcvpx-system-path/share/bash-completion/bash_completion
 fi
 
 #create and go to dir
@@ -39,6 +43,10 @@ fi
 alias ebrc='v ~/.bashrc'
 alias cp='cp -i'
 alias mv='mv -i'
+alias tree='tree -s -h --du'
+alias dh='df -h'
+alias ll='lsd -alh'
+alias rm='rm -rfv'
 alias h='history | grep'
 alias rebootsafe='sudo shutdown -r now'
 alias rebootforce='sudo shutdown -r -n now'
@@ -48,17 +56,17 @@ alias revault='sshfs -o allow_other,default_permissions ryan@192.168.1.114:/mnt/
 
 cd() {
   if [ -n "1" ]; then
-    builtin cd "$@" && lsd -alh
+    builtin cd "$@" && ll
   else
-   builtin cd ~ && lsd -alh
+   builtin cd ~ && ll
   fi
 }
 
 zz() {
   if [ -n "1" ]; then
-    z "$@" && lsd -alh
+    z "$@" && ll
   else
-    z ~ && lsd -alh
+    z ~ && ll
   fi
 }
 
