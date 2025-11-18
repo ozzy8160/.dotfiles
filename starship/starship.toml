@@ -3,11 +3,22 @@ add_newline = false
 
 # Use custom format
 format = """
-[╭─](white)$username$hostname in $directory$package$java$python$git_branch$battery$cmd_duration
-[╰───](white)$character """
+[╭─](white)$os $git_branch$git_status$username$hostname$directory$package$python$battery$memory_usage$cmd_duration
+[╰─⎯](white) $character """
 
 # Wait 10 milliseconds for starship to check files under the current directory.
 scan_timeout = 10
+
+[os]
+format = '[$symbol](bold white)'   
+disabled = false
+
+[os.symbols]
+Windows = ' '
+Arch = '󰣇'
+Ubuntu = ''
+Macos = '󰀵'
+Unknown = '󰠥'
 
 # Username settings
 [username]
@@ -20,7 +31,7 @@ disabled = false
 # Hostname settings
 [hostname]
 ssh_only = false
-format =  "on [$hostname](bold red)"
+format =  "[$hostname](bold red)"
 trim_at = ".companyname.com"
 disabled = false
 
@@ -29,8 +40,8 @@ disabled = false
 read_only = "🔒"
 style = "bold cyan"
 read_only_style = "red"
-truncation_length = 8
-truncation_symbol = "…/"
+truncation_length = 0
+truncation_symbol = "../"
 format = "[$read_only]($read_only_style)[$path]($style) "
 disabled = false
 
@@ -46,25 +57,52 @@ format = "via [${symbol}${version}]($style) "
 
 # Python settings
 [python]
-symbol = "🐍 "
-style = "yellow bold"
-python_binary = "python3"
-pyenv_version_name = true
+symbol = '󰌠 '
+python_binary = ['./venv/bin/python', 'python', 'python3', 'python2']
+format = '[//](black bold) [${symbol} ${pyenv_prefix}(${version} )(\($virtualenv\) )]($style) '
+
+[memory_usage]
+disabled = false
+threshold = 70
+symbol = "🧠 "
+style = "bold blue"
+format = "$symbol[$ram_pct]($style) "
 
 # git settings
 [git_branch]
-symbol = "🌱 "
+symbol = " "
 truncation_length = 4
 truncation_symbol = ""
 
+[git_status]
+#disabled = true
+format = '[$all_status$ahead_behind]($style)'
+style = 'bold green'
+conflicted = '🏳'
+up_to_date = ''
+untracked = ' ${count} '
+ahead = '⇡${count} '
+diverged = '⇕⇡${ahead_count}⇣${behind_count} '
+behind = '⇣${count} '
+stashed = '${count} '
+modified = ' ${count} '
+staged = '[++\($count\)](green)'
+renamed = '襁 '
+deleted = ' '
 # Battery information
 [battery]
+disabled = false
 full_symbol = "🔋"
-charging_symbol = "⚡️"
-discharging_symbol = "💀"
+charging_symbol = "⚡"
+discharging_symbol = "🔌"
+unknown_symbol = "❓"
+empty_symbol = "🪫"
+format = "$symbol[$percentage] "
+#full_symbol = " "
+#charging_symbol = "󰢜 "
 
 [[battery.display]]
-threshold = 10
+threshold = 50
 style = "bold red"
 
 # cmd_duration config
@@ -76,7 +114,7 @@ format = "took [$duration]($style)"
 # Charakter config
 [character]
 format = "$symbol"
-success_symbol = "[❯](bold green)"
-error_symbol = "[✗](bold red) "
+success_symbol = "[ ](bold green)"
+error_symbol = "[ ](bold red) "
 vicmd_symbol = "[❮](bold green)"
 disabled = false
