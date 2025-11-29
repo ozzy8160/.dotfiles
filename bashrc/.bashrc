@@ -51,7 +51,7 @@ alias h='history | grep'
 alias rebootsafe='sudo shutdown -r now'
 alias rebootforce='sudo shutdown -r -n now'
 alias	sj="ssh ryan@192.168.1.58"
-alias	sn="ssh ryan@192.168.1.114"
+alias	sn="kitty +kitten ssh ryan@192.168.1.114"
 alias revault='sshfs -o allow_other,default_permissions ryan@192.168.1.114:/mnt/vault3 /mnt/vault3'
 
 cd() {
