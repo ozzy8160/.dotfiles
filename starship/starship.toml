@@ -3,22 +3,11 @@ add_newline = false
 
 # Use custom format
 format = """
-[╭─](white)$os $git_branch$git_status$username$hostname$directory$package$python$battery$memory_usage$cmd_duration
-[╰─⎯](white) $character """
+[╭─](white)$character$hostname$username$git_branch$git_status$directory$package$python$battery$memory_usage$cmd_duration
+[╰────⎯](white) """
 
 # Wait 10 milliseconds for starship to check files under the current directory.
-scan_timeout = 10
-
-[os]
-format = '[$symbol](bold white)'   
-disabled = false
-
-[os.symbols]
-Windows = ' '
-Arch = '󰣇'
-Ubuntu = ''
-Macos = '󰀵'
-Unknown = '󰠥'
+scan_timeout = 20
 
 # Username settings
 [username]
